@@ -100,25 +100,36 @@ INSERT INTO todo_list VALUES (2, "vacuuming", 20);
 INSERT INTO todo_list VALUES (3, "Learn some stuff on KA", 30);
 INSERT INTO todo_list VALUES (4, "Save the world", 1);
 
---Select the SUM of minutes it will take to do all of the items on your TODO list. 
+-- Select the SUM of minutes it will take to do all of the items on your TODO list. 
 SELECT SUM(minutes) FROM todo_list;
 
 
+/*
+Project
+Design a store database
+*/
 
+CREATE TABLE shoe_store (id INTEGER PRIMARY KEY, name TEXT, size INTEGER, colour TEXT, price INTEGER, release_location TEXT, manufacturer TEXT);
 
+INSERT INTO shoe_store VALUES(1, "Nike Air Force1'07", 7, "Blue", "320", "Egypt", "Nike");
+INSERT INTO shoe_store VALUES(2, "ZX 2K Boost Shoes 7", 7, "Grey", "420", "Australia", "Adidas");
+INSERT INTO shoe_store VALUES(3, "Nike Air Max 90 LTR", 7, "Yellow", "400", "UK", "Nike");
+INSERT INTO shoe_store VALUES(4, "Nike Air Zoom Tempo Next", 8, "Black", "500", "US", "Nike");
+INSERT INTO shoe_store VALUES(5, "Nike Metcon 6", 8, "Grey", "550", "Canada", "Nikes");
+INSERT INTO shoe_store VALUES(6, "Nike Manoa", 7.5, "Brown", "600", "US", "Nike");
+INSERT INTO shoe_store VALUES(7, "LeBron 18", 6.5, "Pink", "350", "US", "Nike");
+INSERT INTO shoe_store VALUES(8, "Super Star Shoes7", 8, "White", "300", "UK", "Adidas");
+INSERT INTO shoe_store VALUES(9, "Dame 7", 6.5, "Orange", "500", "Canada", "Adidas");
+INSERT INTO shoe_store VALUES(10, "Nite Jogger", 7.5, "Blue", "150", "Sweden", "Adidas");
+INSERT INTO shoe_store VALUES(11, "Kaptir Shoe", 8, "Green", "250", "Australia", "Adidas");
+INSERT INTO shoe_store VALUES(12, "UA CUrry 7", 6.5, "Gold", "400", "Australia", "Under Armour");
+INSERT INTO shoe_store VALUES(13, "608v5", 7, "White", "240", "China", "New Balance");
+INSERT INTO shoe_store VALUES(14, "574", 6.5, "Brown", "420", "China", "New Balance");
+INSERT INTO shoe_store VALUES(15, "Minimus Prevail7", 8, "Indigo", "250", "Egypt", "New Balance");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+-- Displays all rows in the shoe_store table
+SELECT * FROM shoe_store;
+-- Displays all rows in the shoe_store table ordered by price
+SELECT * FROM shoe_store ORDER BY price;
+-- Displays the colour column and aggregated prices column of the shoe_store table grouped by colour
+SELECT colour, SUM(price) FROM shoe_store GROUP BY colour;
