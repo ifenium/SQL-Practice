@@ -1,2 +1,2 @@
 # SQL-Practice
-Ife's SQL Practice
+SQL Practice from Khanacademy, ...
