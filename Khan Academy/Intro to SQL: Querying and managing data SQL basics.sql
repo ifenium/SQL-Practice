@@ -1,4 +1,4 @@
---Queries based on exercises from Codecademy
+--Queries based on exercises from Khanacademy
 
 /*
 Creating a table and inserting data
