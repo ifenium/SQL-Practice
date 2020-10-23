@@ -272,7 +272,7 @@ SELECT author, SUM(words) AS total_words FROM books
     HAVING total_words > 1000000;
     
 -- Select all the authors that write more than an average of 150,000 words per book the query should include the 'author' and average words as an 'avg_words' 
-SELECT author, AVG(words) AS avg_words FROM bo0ks
+SELECT author, AVG(words) AS avg_words FROM books
     GROUP BY author
     HAVING avg_words > 150000;
     
@@ -375,5 +375,64 @@ GROUP BY letter_grade;
 Project
 Data dig
 */
-                                        
-                                        
+
+/*
+Earned Badges
+This table contains badges earned by a user, including the most recent date achieved, the type, the name, the # of energy points earned, and the activity earned from.
+Collected by: https://www.khanacademy.org/profile/chopsor/
+*/
+
+CREATE TABLE badges (
+    date TEXT,
+    badge_type TEXT,
+    badge_name TEXT,
+    energy_points INTEGER
+);
+
+INSERT INTO badges (date, badge_type, badge_name, energy_points) VALUES ("2015, 04/12", "Sun", "Oracle", 0);
+INSERT INTO badges (date, badge_type, badge_name, energy_points) VALUES ("2015, 04/28", "Earth", "Incredible Inspiration", 5000);
+INSERT INTO badges (date, badge_type, badge_name, energy_points) VALUES ("2015, 01/29", "Challenge Patch", "Intro to JS: Drawing & Animation Mastery", 0);
+INSERT INTO badges (date, badge_type, badge_name, energy_points) VALUES ("2014, 12/05", "Meteorite", "Thumbs Up", 0);
+INSERT INTO badges (date, badge_type, badge_name, energy_points) VALUES ("2015, 04/28", "Moon", "1000 Kelvin", 1000);
+INSERT INTO badges (date, badge_type, badge_name, energy_points) VALUES ("2015, 04/25", "Earth", "299,792,458 Meters per Second", 5000);
+INSERT INTO badges (date, badge_type, badge_name, energy_points) VALUES ("2015, 03/20", "Sun", "Da Vinci", 200000);
+INSERT INTO badges (date, badge_type, badge_name, energy_points) VALUES ("2015, 03/02", "Sun", "Newton", 150000);
+INSERT INTO badges (date, badge_type, badge_name, energy_points) VALUES ("2015, 03/02", "Sun", "Hypatia", 125000);
+INSERT INTO badges (date, badge_type, badge_name, energy_points) VALUES ("2015, 02/24", "Sun", "Kepler", 125000);
+INSERT INTO badges (date, badge_type, badge_name, energy_points) VALUES ("2015, 02/24", "Sun", "Copernicus", 80000);
+INSERT INTO badges (date, badge_type, badge_name, energy_points) VALUES ("2015, 02/07", "Sun", "Sally Ride", 35000);
+INSERT INTO badges (date, badge_type, badge_name, energy_points) VALUES ("2015, 01/06", "Sun", "Magellan", 30000);
+INSERT INTO badges (date, badge_type, badge_name, energy_points) VALUES ("2015, 02/24", "Earth", "Guru", 0);
+INSERT INTO badges (date, badge_type, badge_name, energy_points) VALUES ("2014, 12/29", "Earth", "Work Horse", 14000);
+INSERT INTO badges (date, badge_type, badge_name, energy_points) VALUES ("2014, 10/20", "Moon", "Redwood", 0);
+INSERT INTO badges (date, badge_type, badge_name, energy_points) VALUES ("2013, 10/20", "Meteorite", "Cypress", 0);
+INSERT INTO badges (date, badge_type, badge_name, energy_points) VALUES ("2015, 03/18", "Sun", "Millionaire", 0);
+INSERT INTO badges (date, badge_type, badge_name, energy_points) VALUES ("2015, 02/27", "Earth", "Five Times Ten to the Fifth", 0);
+INSERT INTO badges (date, badge_type, badge_name, energy_points) VALUES ("2015, 04/04", "Earth", "Investigator", 0);
+
+-- What are average, max, and min values in the data?
+SELECT MAX(energy_points) FROM badges;
+SELECT AVG(energy_points) FROM badges;
+SELECT MIn(energy_points) FROM badges;
+
+-- What about those numbers per category in the data (using HAVING)?
+SELECT badge_type, COUNT(badge_type) AS no_of_badges FROM badges
+GROUP BY badge_type
+HAVING badge_type >= 0;
+
+-- What ways are there to group the data values that don’t exist yet (using CASE)?
+SELECT COUNT(*), energy_points,
+    CASE 
+        WHEN energy_points > 180000 THEN "100 Hours or more"
+        WHEN energy_points > 100000 THEN "70 Hours or more"
+        WHEN energy_points > 10000 THEN "50 Hours or more"
+        WHEN energy_points > 1000 THEN "20 Hours or more"
+        ELSE "Less than 20 Hours"
+    END AS "approx_time_spent"
+FROM badges
+GROUP BY approx_time_spent;
+
+-- What interesting ways are there to filter the data (using AND/OR)?
+SELECT energy_points, badge_name FROM badges
+WHERE energy_points > 2000 AND badge_name = "Newton"; 
+                                                                         
