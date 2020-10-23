@@ -306,25 +306,23 @@ SELECT COUNT(*) FROM exercise_logs
     WHERE heart_rate >= ROUND(0.50 * (220 - 20)) AND
         heart_rate =< ROUND(0.90 * (220 - 20));                                 
     
--- 
+-- Create a new column to group each row if "above max", "within taget" and "below target" using CASE
 SELECT type, hear_rate 
     CASE
         WHEN heart_rate  > 220 - 0 THEN "above max"
         WHEN heart_rate  > ROUND(0.90 * (220 - 20)) THEN "above target"
         WHEN heart_rate > ROUND(0.50 * (220 - 20)) THEN "above target"
         ELSE "below target"
-    END AS "hr zone" 
+    END AS "hr_zone" 
 FROM exercise_logs;
                                         
---
+-- Counts how many fall in each of the groups created
 SELECT COUNT(*),
     CASE 
         WHEN heart_rate > 220-30 THEN "above max"
         WHEN heart_rate > ROUND(0.90 * (220-30)) THEN "above target"
         WHEN heart_rate > ROUND(0.50 * (220-30)) THEN "within target"
         ELSE "below target"
-    END as "hr_zone"
+    END AS "hr_zone"
 FROM exercise_logs
 GROUP BY hr_zone;
-
-
