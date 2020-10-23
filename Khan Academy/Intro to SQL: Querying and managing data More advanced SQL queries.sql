@@ -276,3 +276,55 @@ SELECT author, AVG(words) AS avg_words FROM bo0ks
     GROUP BY author
     HAVING avg_words > 150000;
     
+/*
+Calculating results with CASE
+*/
+
+CREATE TABLE exercise_logs
+    (id INTEGER PRIMARY KEY AUTOINCREMENT,
+    type TEXT,
+    minutes INTEGER, 
+    calories INTEGER,
+    heart_rate INTEGER);
+
+INSERT INTO exercise_logs(type, minutes, calories, heart_rate) VALUES ("biking", 30, 100, 110);
+INSERT INTO exercise_logs(type, minutes, calories, heart_rate) VALUES ("biking", 10, 30, 105);
+INSERT INTO exercise_logs(type, minutes, calories, heart_rate) VALUES ("dancing", 15, 200, 120);
+INSERT INTO exercise_logs(type, minutes, calories, heart_rate) VALUES ("dancing", 15, 165, 120);
+INSERT INTO exercise_logs(type, minutes, calories, heart_rate) VALUES ("tree climbing", 30, 70, 90);
+INSERT INTO exercise_logs(type, minutes, calories, heart_rate) VALUES ("tree climbing", 25, 72, 80);
+INSERT INTO exercise_logs(type, minutes, calories, heart_rate) VALUES ("rowing", 30, 70, 90);
+INSERT INTO exercise_logs(type, minutes, calories, heart_rate) VALUES ("hiking", 60, 80, 85);
+
+-- Check if you have a healthy heart rate (if your heart rate is less than 220 - your current age)
+SELECT COUNT(*) FROM exercise_logs 
+    WHERE heart rate > 220 - 20;
+    
+-- Check if your heart rate goes above the 'target zone (50% - 90% of max)
+
+SELECT COUNT(*) FROM exercise_logs
+    WHERE heart_rate >= ROUND(0.50 * (220 - 20)) AND
+        heart_rate =< ROUND(0.90 * (220 - 20));                                 
+    
+-- 
+SELECT type, hear_rate 
+    CASE
+        WHEN heart_rate  > 220 - 0 THEN "above max"
+        WHEN heart_rate  > ROUND(0.90 * (220 - 20)) THEN "above target"
+        WHEN heart_rate > ROUND(0.50 * (220 - 20)) THEN "above target"
+        ELSE "below target"
+    END AS "hr zone" 
+FROM exercise_logs;
+                                        
+--
+SELECT COUNT(*),
+    CASE 
+        WHEN heart_rate > 220-30 THEN "above max"
+        WHEN heart_rate > ROUND(0.90 * (220-30)) THEN "above target"
+        WHEN heart_rate > ROUND(0.50 * (220-30)) THEN "within target"
+        ELSE "below target"
+    END as "hr_zone"
+FROM exercise_logs
+GROUP BY hr_zone;
+
+
