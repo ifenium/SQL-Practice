@@ -183,3 +183,41 @@ SELECT name FROM artists WHERE genre = 'Pop';
 -- Add another query that will select the title of all the songs from the 'Pop' artists. It should use IN on a nested subquery that's based on your previous query
 SELECT title FROM songs WHERE artist IN (
     SELECT name FROM artists WHERE genre = 'Pop');
+    
+/* 
+Restricting grouped results with HAVING 
+*/
+
+CREATE TABLE exercise_logs
+    (id INTEGER PRIMARY KEY AUTOINCREMENT,
+    type TEXT,
+    minutes INTEGER, 
+    calories INTEGER,
+    heart_rate INTEGER);
+
+INSERT INTO exercise_logs(type, minutes, calories, heart_rate) VALUES ("biking", 30, 115, 110);
+INSERT INTO exercise_logs(type, minutes, calories, heart_rate) VALUES ("biking", 10, 45, 105);
+INSERT INTO exercise_logs(type, minutes, calories, heart_rate) VALUES ("dancing", 15, 200, 120);
+INSERT INTO exercise_logs(type, minutes, calories, heart_rate) VALUES ("dancing", 15, 165, 120);
+INSERT INTO exercise_logs(type, minutes, calories, heart_rate) VALUES ("tree climbing", 30, 70, 90);
+INSERT INTO exercise_logs(type, minutes, calories, heart_rate) VALUES ("tree climbing", 25, 72, 80);
+INSERT INTO exercise_logs(type, minutes, calories, heart_rate) VALUES ("rowing", 30, 70, 90);
+INSERT INTO exercise_logs(type, minutes, calories, heart_rate) VALUES ("hiking", 60, 80, 85);
+
+-- Show how much calorie was burnt for each type of activity 
+SELECT type, SUM(calories) AS total_calories FROM exercise_logs GROUP BY type;
+
+-- Show activities where a total of 150 calories were burnt  
+SELECT type, SUM(calories) As total_calories FROM exercise_logs 
+    GROUP BY type
+    HAVING total_calories > 150;
+    
+-- Show the average calories for all exercises where more than 70 calories where burnt
+SELECT type, AVG(calories) AS avg_calories FROM exercise_logs
+    GROUP BY type
+    HAVING avg_calories > 70; 
+    
+-- Show exercises which were carried out 2 or more times
+SELECT type FROM exercise_logs 
+    GROUP BY type 
+    HAVING COUNT(1) >= 2;
