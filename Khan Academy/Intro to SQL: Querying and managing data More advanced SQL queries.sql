@@ -326,3 +326,9 @@ SELECT COUNT(*),
     END AS "hr_zone"
 FROM exercise_logs
 GROUP BY hr_zone;
+
+ /*
+ Challenge
+ Gradebook
+ */
+                                        
