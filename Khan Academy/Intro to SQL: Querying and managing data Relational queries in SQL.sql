@@ -30,7 +30,14 @@ INSERT INTO student_grades (student_id, test, grade)
     
 SELECT * FROM student_grades;
 
-/* cross join */
+-- Cross join 
 SELECT * FROM student_grades, students;
 
-/* inner join */
+-- Implicit Inner Join 
+SELECT * FROM student_grades, students
+  WHERE student_grades.student_id = students.id;
+
+-- Explicit Inner Join
+SELECT students.first_name, students.last_name, students.email , students.test, students.grade FROM students
+  JOIN student_grades
+  ON student.id = student_grades.student_id;
