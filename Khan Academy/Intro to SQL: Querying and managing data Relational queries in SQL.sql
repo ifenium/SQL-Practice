@@ -48,7 +48,7 @@ Bobby's Hobbies
 */
 
 CREATE TABLE persons (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT,
     age INTEGER);
     
@@ -92,3 +92,160 @@ SELECT persons.name, hobbies.name FROM persons
 /* 
 Joining related tables with left outer joins
 */
+
+CREATE TABLE students (id INTEGER PRIMARY KEY,
+    first_name TEXT,
+    last_name TEXT,
+    email TEXT,
+    phone TEXT,
+    birthdate TEXT);
+
+INSERT INTO students (first_name, last_name, email, phone, birthdate)
+    VALUES ("Peter", "Rabbit", "peter@rabbit.com", "555-6666", "2002-06-24");
+INSERT INTO students (first_name, last_name, email, phone, birthdate)
+    VALUES ("Alice", "Wonderland", "alice@wonderland.com", "555-4444", "2002-07-04");
+    
+CREATE TABLE student_grades (id INTEGER PRIMARY KEY,
+    student_id INTEGER,
+    test TEXT,
+    grade INTEGER);
+
+INSERT INTO student_grades (student_id, test, grade)
+    VALUES (1, "Nutrition", 95);
+INSERT INTO student_grades (student_id, test, grade)
+    VALUES (2, "Nutrition", 92);
+INSERT INTO student_grades (student_id, test, grade)
+    VALUES (1, "Chemistry", 85);
+INSERT INTO student_grades (student_id, test, grade)
+    VALUES (2, "Chemistry", 95);
+
+CREATE TABLE student_projects (id INTEGER PRIMARY KEY,
+    student_id INTEGER,
+    title TEXT);
+    
+INSERT INTO student_projects (student_id, title)
+    VALUES (1, "Carrotapault");
+    
+
+SELECT students.first_name, students.last_name, student_projects.title FROM students
+  LEFT OUTER JOIN student_projects
+  ON students.id = student_projects.student_id;
+  
+/* 
+Challenge:
+Customer's orders
+*/
+
+CREATE TABLE customers (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    email TEXT);
+    
+INSERT INTO customers (name, email) VALUES ("Doctor Who", "doctorwho@timelords.com");
+INSERT INTO customers (name, email) VALUES ("Harry Potter", "harry@potter.com");
+INSERT INTO customers (name, email) VALUES ("Captain Awesome", "captain@awesome.com");
+
+CREATE TABLE orders (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    customer_id INTEGER,
+    item TEXT,
+    price REAL);
+
+INSERT INTO orders (customer_id, item, price)
+    VALUES (1, "Sonic Screwdriver", 1000.00);
+INSERT INTO orders (customer_id, item, price)
+    VALUES (2, "High Quality Broomstick", 40.00);
+INSERT INTO orders (customer_id, item, price)
+    VALUES (1, "TARDIS", 1000000.00);
+    
+/*
+Come up with a query that lists the name and email of every customer followed by the item and price of orders they've made.
+Use a LEFT OUTER JOIN so that a customer is listed even if they've made no orders, and don't add any ORDER BY.
+*/
+
+SELECT customers.name, customers.email, orders.item, orders.price FROM customers
+LEFT OUTER JOIN orders
+ON customers.id = orders.customer_id;
+    
+/*
+Create another query that will result in one row per each customer, with their name, email, and total amount of money 
+they've spent on orders. Sort the rows according to the total money spent, from the most spent to the least spent.
+(Tip: You should always GROUP BY on the column that is most likely to be unique in a row.)
+*/
+
+SELECT customers.name, customers.email, SUM(orders.price) AS total_amount_spent FROM customers
+LEFT OUTER JOIN orders 
+ON customers.id = orders.customer_id
+GROUP BY total_amount_spent
+ORDER BY total_amount_spent;
+   
+
+
+SELECT customers.name, customers.email, SUM(orders.price) AS total_amount_spent FROM customers
+LEFT OUTER JOIN orders 
+ON customers.id = orders.customer_id
+GROUP BY customers.id
+ORDER BY total_amount_spent DESC;
+   
+/*
+Joining tables to themselves with self-joins
+*/
+
+CREATE TABLE students (id INTEGER PRIMARY KEY AUTOINCREMENT,
+    first_name TEXT,
+    last_name TEXT,
+    email TEXT,
+    phone TEXT,
+    birthdate TEXT,
+    buddy_id INTEGER);
+
+INSERT INTO students 
+    VALUES (1, "Peter", "Rabbit", "peter@rabbit.com", "555-6666", "2002-06-24", 2);
+INSERT INTO students 
+    VALUES (2, "Alice", "Wonderland", "alice@wonderland.com", "555-4444", "2002-07-04", 1);
+INSERT INTO students 
+    VALUES (3, "Aladdin", "Lampland", "aladdin@lampland.com", "555-3333", "2001-05-10", 4);
+INSERT INTO students 
+    VALUES (4, "Simba", "Kingston", "simba@kingston.com", "555-1111", "2001-12-24", 3);
+    
+SELECT id, first_name, last_name, buddy_id FROM students;
+
+SELECT students.first_name, students.last_name, buddies.email AS buddy_email FROM students
+    JOIN students buddies
+    ON students.buddy_id = buddies.id;
+    
+/*
+Challenge: 
+Sequels in SQL
+*/
+    
+CREATE TABLE movies (id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT,
+    released INTEGER,
+    sequel_id INTEGER);
+
+INSERT INTO movies 
+    VALUES (1, "Harry Potter and the Philosopher's Stone", 2001, 2);
+INSERT INTO movies 
+    VALUES (2, "Harry Potter and the Chamber of Secrets", 2002, 3);
+INSERT INTO movies 
+    VALUES (3, "Harry Potter and the Prisoner of Azkaban", 2004, 4);
+INSERT INTO movies 
+    VALUES (4, "Harry Potter and the Goblet of Fire", 2005, 5);
+INSERT INTO movies 
+    VALUES (5, "Harry Potter and the Order of the Phoenix ", 2007, 6);
+INSERT INTO movies 
+    VALUES (6, "Harry Potter and the Half-Blood Prince", 2009, 7);
+INSERT INTO movies 
+    VALUES (7, "Harry Potter and the Deathly Hallows – Part 1", 2010, 8);
+INSERT INTO movies 
+    VALUES (8, "Harry Potter and the Deathly Hallows – Part 2", 2011, NULL);
+
+-- Issue a SELECT that will show the title of each movie next to its sequel's title (or NULL if it doesn't have a sequel).
+SELECT movies.title, sequel.title AS sequel FROM movies    
+LEFT OUTER JOIN movies sequel
+ON movies.sequel_id = sequel.id
+    
+    
+    
+    
