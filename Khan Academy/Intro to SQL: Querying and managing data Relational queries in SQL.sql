@@ -332,10 +332,8 @@ CREATE table friends (
     person1_id INTEGER,
     person2_id INTEGER);
 
-INSERT INTO friends (person1_id, person2_id)
-    VALUES (1, 4);
-INSERT INTO friends (person1_id, person2_id)
-    VALUES (2, 3);
+INSERT INTO friends (person1_id, person2_id) VALUES (1, 4);
+INSERT INTO friends (person1_id, person2_id) VALUES (2, 3);
     
 -- Use a JOIN to display a table showing people's names with their hobbies    
 SELECT persons.fullname, hobbies.name FROM persons
