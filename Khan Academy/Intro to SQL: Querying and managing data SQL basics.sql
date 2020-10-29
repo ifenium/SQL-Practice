@@ -1,4 +1,4 @@
---Queries based on exercises from Khanacademy
+--Queries based on exercises from Khan Academy(http://khanacademy.org/computing/computer-programming/sql/sql-basics/)
 
 /*
 Creating a table and inserting data
