@@ -1,6 +1,13 @@
 --Queries based on exercises from PostgreSQL Exercises (https://pgexercises.com/questions/basic/)
 
 /*
+Simple SQL Queries 
+This category deals with the basics of SQL. It covers select and where clauses, case expressions, unions, and a few other odds and ends. 
+If you're already educated in SQL you will probably find these exercises fairly easy. If not, you should find them a good point to start 
+learning for the more difficult categories ahead!
+*/
+
+/*
 Retrieve everything from a table
 Question: 
 How can you retrieve all the information from the cd.facilities table?
@@ -135,30 +142,3 @@ SELECT firstname, surname, joindate
 	FROM cd.members
 		ORDER BY joindate DESC
 		LIMIT 1
-/*
-
--- Question:
-
-*/
--- Answer
-
-/*
-
--- Question:
-
-*/
--- Answer
-
-/*
-
--- Question:
-
-*/
--- Answer
-
-/*
-
--- Question:
-
-*/
--- Answer
