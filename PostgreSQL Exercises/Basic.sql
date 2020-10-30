@@ -126,11 +126,15 @@ You'd like to get the first and last name of the last member(s) who signed up - 
 */
 -- Answer
 SELECT firstname, surname, joindate
-	FROM cd.members
+FROM cd.members
 	WHERE joindate =
 		(SELECT MAX(joindate)
 			FROM cd.members);
-			
+--or
+SELECT firstname, surname, joindate
+	FROM cd.members
+		ORDER BY joindate DESC
+		LIMIT 1
 /*
 
 -- Question:
