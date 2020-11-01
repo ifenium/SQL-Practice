@@ -77,12 +77,14 @@ UPDATE cd.facilites
 
 
 /*
-
+Delete all bookings
 Question:
-
+As part of a clearout of our database, we want to delete all bookings from the cd.bookings table. How can we accomplish this?
 */
 -- Answer 
-
+TRUNCATE cd.bookings;
+--or
+DELETE FROM cd.bookings;
 
 *
 
