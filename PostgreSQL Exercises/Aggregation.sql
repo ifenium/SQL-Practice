@@ -80,13 +80,16 @@ Find the total number of members (including guests) who have made at least one b
 SELECT COUNT(DISTINCT memid) FROM cd.bookings
 
 /*
-
+List facilities with more than 1000 slots booked
 Question:
-
-
+Produce a list of facilities with more than 1000 slots booked. Produce an output table consisting of facility id and slots, sorted by facility id.
 */
 --Answer 
-
+SELECT facid, SUM(slots) AS "Total Slots" 
+  FROM cd.bookings
+  GROUP BY facid
+  HAVING SUM(slots) > 1000
+  ORDER BY facid;
 
 /*
 
