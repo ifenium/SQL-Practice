@@ -135,14 +135,30 @@ SELECT facs.name, SUM(slots *
 ORDER BY revenue;
 
 --or 
+SELECT name, revenue FROM(
+				  SELECT facs.name, SUM(CASE
+											WHEN memid = 0 THEN slots * facs.guestcost
+											ELSE slots * facs.membercost
+										END) AS revenue 
+						FROM cd.bookings AS bks
+						INNER JOIN cd.facilities AS facs
+							ON bks.facid = facs.facid
+						GROUP BY facs.name
+					) AS agg 
+	WHERE revenue < 1000
+ORDER BY revenue;
 
 /*
-
+Output the facility id that has the highest number of slots booked
 Question:
-
+Output the facility id that has the highest number of slots booked. For bonus points, try a version without a LIMIT clause. This version will probably look messy!
 */
 --Answer 
-
+SELECT facid, SUM(slots) AS "Total Slots"
+  FROM cd.bookings
+  GROUP BY facid
+ORDER BY SUM(slots) DESC 
+LIMIT 1;
 
 /*
 
