@@ -92,9 +92,69 @@ SELECT facid, SUM(slots) AS "Total Slots"
   ORDER BY facid;
 
 /*
+Find the total revenue of each facility
+Question:
+Produce a list of facilities along with their total revenue. The output table should consist of facility name and revenue, sorted by revenue. 
+Remember that there's a different cost for guests and members!
+*/
+--Answer 
+SELECT facs.name, SUM(slots * 
+					  CASE 
+					  	WHEN memid = 0 THEN facs.guestcost
+					   	ELSE facs.membercost
+					  	END) AS revenue
+
+	FROM cd.bookings AS bks
+	INNER JOIN cd.facilities AS facs
+		ON bks.facid = facs.facid 
+	GROUP BY facs.name
+ORDER BY revenue;
+
+/*
+Find facilities with a total revenue less than 1000
+Question:
+Produce a list of facilities with a total revenue less than 1000. 
+Produce an output table consisting of facility name and revenue, sorted by revenue. 
+Remember that there's a different cost for guests and members!
+*/
+--Answer 
+SELECT facs.name, SUM(slots * 
+				CASE
+					WHEN memid=0 THEN facs.guestcost
+				ELSE facs.membercost
+				END) AS revenue
+	FROM cd.bookings AS bks
+	INNER JOIN cd.facilities AS facs
+		ON facs.facid = bks.facid
+	GROUP BY facs.name
+	HAVING SUM(slots * 
+				CASE
+					WHEN memid=0 THEN facs.guestcost
+				ELSE facs.membercost
+				END) < 1000
+ORDER BY revenue;
+
+--or 
+
+/*
 
 Question:
 
+*/
+--Answer 
+
+
+/*
+
+Question:
+
+*/
+--Answer 
+
+
+/*
+
+Question:
 
 */
 --Answer 
