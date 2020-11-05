@@ -185,6 +185,41 @@ SELECT facid, EXTRACT(MONTH FROM starttime) AS month, SUM(slots) AS "Total Slots
  ORDER BY facid,month;
 
 /*
+List the total hours booked per named facility
+Question:
+Produce a list of the total number of hours booked per facility, remembering that a slot lasts half an hour. 
+The output table should consist of the facility id, name, and hours booked, sorted by facility id. Try formatting the hours to two decimal places.
+*/
+--Answer 
+SELECT facs.facid, facs.name, TRIM(TO_CHAR(SUM(bks.slots)/2.0, '9999999999999999D99')) AS "Total Hours"
+FROM cd.bookings AS BKS
+	INNER JOIN cd.facilities AS facs
+		ON bks.facid = facs.facid
+	GROUP BY facs.facid, facs.name
+ORDER BY facs.facid;
+																	 
+/*
+List each member's first booking after September 1st 2012
+Question:
+Produce a list of each member name, id, and their first booking after September 1st 2012. Order by member ID.
+*/
+--Answer 
+SELECT mems.surname, mems.firstname, mems.memid, MIN(bks.starttime) AS starrtime
+	FROM cd.members AS mems
+	INNER JOIN cd.bookings AS bks
+		ON mems.memid = bks.memid
+	WHERE starttime >= '2012-09-01'
+	GROUP BY mems.surname, mems.firstname, mems.memid
+ORDER BY mems.memid;
+																					 
+/*
+Produce a list of member names, with each row containing the total member count
+Question:
+Produce a list of member names, with each row containing the total member count. Order by join date, and include guest members.
+*/
+--Answer 
+
+/*
 
 Question:
 
