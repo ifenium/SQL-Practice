@@ -221,13 +221,28 @@ Produce a list of member names, with each row containing the total member count.
 SELECT (SELECT COUNT(*) FROM cd.members as count), firstname, surname 
 	FROM cd.members 
 ORDER BY joindate;
-
 --or 
-
 SELECT COUNT(*) OVER(), firstname, surname
 	FROM cd.members
 ORDER BY joindate;
 																					 
+/*
+Produce a numbered list of members
+Question:
+Produce a monotonically increasing numbered list of members (including guests), ordered by their date of joining. Remember that member IDs are not guaranteed to be sequential.
+*/
+--Answer 
+SELECT row_number() OVER(ORDER BY joindate), 
+		firstname,
+		surname
+FROM cd.members
+ORDER BY joindate
+--or		
+SELECT COUNT(*) OVER(ORDER BY joindate), 
+		firstname,
+		surname
+FROM cd.members
+ORDER BY joindate																					 
 /*
 
 Question:
