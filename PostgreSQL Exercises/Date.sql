@@ -24,13 +24,27 @@ Find the result of subtracting the timestamp '2012-07-30 01:00:00' from the time
 SELECT timestamp '2012-08-31 01:00:00' - timestamp '2012-07-30 01:00:00' AS interval;
 
 /*
+Generate a list of all the dates in October 2012
+-- Question:
+Produce a list of all the dates in October 2012. 
+They can be output as a timestamp (with time set to midnight) or a date.
+*/
+-- Answer
+SELECT generate_series(timestamp '2012-10-01', timestamp '2012-10-31', interval '1 day')AS ts;
+
+/*
+Get the day of the month from the timestamp '2012-08-31' as an integer.
+-- Question:
+Get the day of the month from the timestamp '2012-08-31' as an integer.
+*/
+-- Answer
+SELECT EXTRACT(DAY from timestamp '2012-08-31');
 
 -- Question:
 
 */
 -- Answer
 
-/*
 
 -- Question:
 
