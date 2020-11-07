@@ -40,11 +40,13 @@ Get the day of the month from the timestamp '2012-08-31' as an integer.
 -- Answer
 SELECT EXTRACT(DAY from timestamp '2012-08-31');
 
+/*
+Work out the number of seconds between timestamps
 -- Question:
-
+Work out the number of seconds between the timestamps '2012-08-31 01:00:00' and '2012-09-02 00:00:00'
 */
 -- Answer
-
+SELECT EXTRACT(EPOCH FROM timestamp '2012-09-02 00:00:00'- timestamp '2012-08-31 01:00:00') AS date_part
 
 -- Question:
 
