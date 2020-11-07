@@ -8,18 +8,20 @@ They're also fantastically powerful, making it easier to work with variable-leng
 */
 
 /*
-
+Produce a timestamp for 1 a.m. on the 31st of August 2012
 -- Question:
-
+Produce a timestamp for 1 a.m. on the 31st of August 2012.
 */
 -- Answer
+SELECT timestamp '2012-08-31 01:00:00';
 
 /*
-
+Subtract timestamps from each other
 -- Question:
-
+Find the result of subtracting the timestamp '2012-07-30 01:00:00' from the timestamp '2012-08-31 01:00:00'
 */
 -- Answer
+SELECT timestamp '2012-08-31 01:00:00' - timestamp '2012-07-30 01:00:00' AS interval;
 
 /*
 
