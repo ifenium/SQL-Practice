@@ -76,11 +76,16 @@ FROM cal
 ORDER BY month;
 
 /*
+Work out the number of days remaining in the month
 -- Question:
-
+For any given timestamp, work out the number of days remaining in the month. 
+The current day should count as a whole day, regardless of the time. Use '2012-02-11 01:00:00' as an example timestamp for the purposes of making the answer. 
+Format the output as a single interval value.
 */
 -- Answer
-
+SELECT (date_trunc('month', ts.testts) + interval '1 month')
+		- date_trunc('day', ts.testts) AS remaining
+FROM (SELECT timestamp '2012-02-11 01:00:00' AS testts) AS ts;
 
 /*
 -- Question:
