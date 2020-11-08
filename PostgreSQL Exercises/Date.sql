@@ -88,15 +88,45 @@ SELECT (date_trunc('month', ts.testts) + interval '1 month')
 FROM (SELECT timestamp '2012-02-11 01:00:00' AS testts) AS ts;
 
 /*
+Work out the end time of bookings
 -- Question:
-
+Return a list of the start and end time of the last 10 bookings (ordered by the time at which they end, followed by the time at which they start) in the system.
 */
 -- Answer
-
+SELECT starttime, starttime + slots*(interval '30 minutes') AS endtime
+  FROM cd.bookings
+  ORDER  BY endtime DESC, starttime DESC
+  LIMIT 10;
 
 /*
+Return a count of bookings for each month
 -- Question:
-
+Return a count of bookings for each month, sorted by month
 */
 -- Answer
-
+SELECT date_trunc('month', starttime) AS month, count(*)
+	FROM cd.bookings
+	GROUP BY month
+	ORDER BY month;
+	
+/*
+Work out the utilisation percentage for each facility by month
+-- Question:
+Work out the utilisation percentage for each facility by month, sorted by name and month, rounded to 1 decimal place. 
+Opening time is 8am, closing time is 8.30pm. 
+You can treat every month as a full month, regardless of if there were some dates the club was not open.
+*/
+-- Answer
+SELECT name, month, 
+	round((100*slots)/
+		CAST(
+			25*(CAST((month + interval '1 month') AS date)
+			- CAST (month AS date)) AS numeric),1) AS utilisation
+	FROM  (
+		SELECT facs.name AS name, date_trunc('month', starttime) AS month, SUM(slots) AS slots
+			FROM cd.bookings AS bks
+			INNER JOIN cd.facilities AS facs
+				ON bks.facid = facs.facid
+			GROUP BY facs.facid, month
+	) AS inn
+ORDER BY name, month;  
