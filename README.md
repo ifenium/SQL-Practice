@@ -1,2 +1,2 @@
 # SQL-Practice
-SQL Practice from Khanacademy, ...
+SQL Practice code from Khanacademy, PostgreSQL
