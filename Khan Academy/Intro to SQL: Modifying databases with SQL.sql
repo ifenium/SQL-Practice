@@ -64,4 +64,7 @@ UPDATE documents
 SET author="Jackie Draper" 
 WHERE author="Jackie Paper";
 
-
+--  Delete the row where the title is 'Things I'm Afraid Of'. Then re-select all the rows to make sure the table changed like you expected.
+DELETE FROM documents 
+WHERE title = "Things I'm Afraid Of";
+SELECT * FROM documents;
