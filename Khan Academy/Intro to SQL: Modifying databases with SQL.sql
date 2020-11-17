@@ -153,3 +153,28 @@ Make your SQL safer
 -- Replication
 -- Granting privileges
 */
+
+/*
+Project:
+App impersonator
+*/
+
+-- CREATE a table to store the data.
+CREATE TABLE friends (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    first_name TEXT,
+                    last_name TEXT,
+                    age INTEGER);
+                    
+-- INSERT a few example rows in the table.
+INSERT INTO friends (first_name, last_name, age)VALUES("John", "Doe", 35);
+INSERT INTO friends (first_name, last_name, age)VALUES("John", "Legend", 39);
+INSERT INTO friends (first_name, last_name, age)VALUES("Kanye", "West", 40);
+
+-- Use an UPDATE to emulate what happens when you edit data in the app.
+UPDATE friends SET first_name = "Jonathan" WHERE id=1;
+
+-- Use a DELETE to emulate what happens when you delete data in the app.
+DELETE FROM friends WHERE last_name = "West";
+
+SELECT * FROM friends
