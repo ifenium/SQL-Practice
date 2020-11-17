@@ -138,4 +138,18 @@ INSERT INTO clothes (type, design, price)
     
 SELECT * FROM clothes
 
+/*
+Notes:
+Make your SQL safer
+*/
 
+/*
+-- Avoiding bad updates/deletes
+  Run a SELECT with the same WHERE to make sure you're updating the right column and row.
+  You can use the LIMIT operator to make sure you don't accidentally update too many rows
+
+-- Using transactions
+-- Making backups
+-- Replication
+-- Granting privileges
+*/
